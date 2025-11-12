@@ -52,7 +52,7 @@ Place all YOLO files in the **root folder** alongside `main.py`.
 
 ---
 
-## 🚀 Running the Project
+## Running the Project
 
 1. Activate your Python virtual environment:
 
