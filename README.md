@@ -1,16 +1,17 @@
-Video Feature Extraction Tool
+# Video Feature Extraction Tool
 
 This Python project extracts key features from a video file including:
 
-Text Detection Ratio – how much text appears in the video.
+- **Text Detection Ratio** – how much text appears in the video.
+- **Motion Analysis** – average motion intensity between frames.
+- **Object vs Person Dominance** – ratio of frames containing people vs other objects using YOLOv3.
 
-Motion Analysis – average motion intensity between frames.
+The output is a **single JSON** summarizing all features.
 
-Object vs Person Dominance – ratio of frames containing people vs other objects using YOLOv3.
+---
 
-The output is a single JSON summarizing all features.
-
-📁 Folder Structure
+## 📁 Folder Structure
+```
 video_extractor/
  ├── main.py
  ├── text_detection.py
@@ -20,65 +21,71 @@ video_extractor/
  ├── yolov3.cfg
  ├── coco.names
  └── sample_video.mp4
+```
 
-⚙️ Requirements
+---
 
-Python 3.10+ (MacOS, Windows, or Linux)
+## ⚙️ Requirements
 
-pip packages:
+- Python 3.10+ (MacOS, Windows, or Linux)
+- pip packages:
 
+```bash
 pip install opencv-python numpy pytesseract
+```
 
+- **Tesseract OCR** installed (for text detection):
 
-Tesseract OCR installed (for text detection):
-
-MacOS:
-
+**MacOS:**
+```bash
 brew install tesseract
+```
 
+**Windows:** Download installer from [https://github.com/tesseract-ocr/tesseract](https://github.com/tesseract-ocr/tesseract)
 
-Windows: Download installer from https://github.com/tesseract-ocr/tesseract
+- YOLOv3 weights, config, and COCO names:
+  - `yolov3.weights` – [Download](https://pjreddie.com/media/files/yolov3.weights)  
+  - `yolov3.cfg` – [Download](https://raw.githubusercontent.com/pjreddie/darknet/master/cfg/yolov3.cfg)  
+  - `coco.names` – [Download](https://raw.githubusercontent.com/pjreddie/darknet/master/data/coco.names)  
 
-YOLOv3 weights, config, and COCO names:
+Place all YOLO files in the **root folder** alongside `main.py`.
 
-yolov3.weights – Download
+---
 
-yolov3.cfg – Download
+## 🚀 Running the Project
 
-coco.names – Download
+1. Activate your Python virtual environment:
 
-Place all YOLO files in the root folder alongside main.py.
-
-🚀 Running the Project
-
-Activate your Python virtual environment:
-
+```bash
 python -m venv venv
 source venv/bin/activate  # Mac/Linux
 venv\Scripts\activate     # Windows
+```
 
+2. Install dependencies:
 
-Install dependencies:
-
+```bash
 pip install -r requirements.txt
+```
 
-
-Sample requirements.txt:
-
+> **Sample `requirements.txt`:**
+```
 opencv-python
 numpy
 pytesseract
+```
 
+3. Place a video in the project folder (e.g., `sample_video.mp4`).
 
-Place a video in the project folder (e.g., sample_video.mp4).
+4. Run the main script:
 
-Run the main script:
-
+```bash
 python main.py
+```
 
+5. The output will be a **JSON** like this:
 
-The output will be a JSON like this:
-
+```json
 {
     "video_path": "sample_video.mp4",
     "features": {
@@ -88,21 +95,22 @@ The output will be a JSON like this:
         "object_dominance_ratio": 0.45
     }
 }
+```
 
-⚡ Notes
+---
 
-Adjust sample_rate in each module for faster processing. Higher values = fewer frames sampled.
+## ⚡ Notes
 
-Text detection uses Tesseract; ensure Tesseract path is correct in text_detection.py.
+- Adjust `sample_rate` in each module for faster processing. Higher values = fewer frames sampled.  
+- Text detection uses Tesseract; ensure Tesseract path is correct in `text_detection.py`.  
+- Motion analysis uses OpenCV’s Farneback optical flow.  
+- YOLO object detection uses pre-trained YOLOv3 on COCO dataset.  
 
-Motion analysis uses OpenCV’s Farneback optical flow.
+---
 
-YOLO object detection uses pre-trained YOLOv3 on COCO dataset.
+## 📌 References
 
-📌 References
+- [OpenCV Python Docs](https://docs.opencv.org/)
+- [Pytesseract Docs](https://pypi.org/project/pytesseract/)
+- [YOLOv3 Paper](https://pjreddie.com/media/files/papers/YOLOv3.pdf)
 
-OpenCV Python Docs
-
-Pytesseract Docs
-
-YOLOv3 Paper
